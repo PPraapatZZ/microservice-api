@@ -6,7 +6,8 @@ metadata:
     app: fastapi-app
 spec:
   replicas: 2
-    matchLabels:
+  selector: 
+    matchLabels:      
       app: fastapi-app
   template:
     metadata:
