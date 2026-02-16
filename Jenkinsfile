@@ -59,7 +59,7 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 echo 'Deploying to K8s Cluster...'
-                sh 'kubectl apply -f k8s/deployment.yaml --insecure-skip-tls-verify --validate=false'
+                sh 'kubectl apply -f k8s/deployment.yaml --server=https://host.docker.internal:8443 --insecure-skip-tls-verify --validate=false'
             }
         }
     }
