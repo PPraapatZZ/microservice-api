@@ -9,11 +9,12 @@ pipeline {
         REPO2_URL = 'https://github.com/PPraapatZZ/microservice-robot-test.git' 
     }
 
-    stages {
         stage('Unit Test (FastAPI)') {
             steps {
                 echo 'Running Unit Tests for mul10...'
                 sh '''
+                python3 -m venv venv
+                . venv/bin/activate
                 pip install -r requirements.txt
                 pytest test_main.py -v
                 '''
@@ -24,11 +25,10 @@ pipeline {
             steps {
                 echo 'Cloning Repo 2 and running Robot Framework...'
                 sh 'git clone ${REPO2_URL} robot_tests'
-                
-                sh 'nohup uvicorn main:app --host 0.0.0.0 --port 8000 > api.log 2>&1 &'
-                sh 'sleep 5'
-                
                 sh '''
+                . venv/bin/activate
+                nohup uvicorn main:app --host 0.0.0.0 --port 8000 > api.log 2>&1 &
+                sleep 5
                 pip install -r robot_tests/requirements.txt
                 robot robot_tests/test_mul10.robot
                 '''
