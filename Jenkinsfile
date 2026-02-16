@@ -1,7 +1,6 @@
 pipeline {
     agent any
     
-
     environment {
         DOCKER_CREDS_ID = 'dockerhub-credentials' 
         DOCKER_IMAGE = 'n3ptune22/microservice-api' 
@@ -9,6 +8,8 @@ pipeline {
         REPO2_URL = 'https://github.com/PPraapatZZ/microservice-robot-test.git' 
     }
 
+    // ต้องมีบล็อก stages ครอบ stage ย่อยทั้งหมดครับ
+    stages {
         stage('Unit Test (FastAPI)') {
             steps {
                 echo 'Running Unit Tests for mul10...'
@@ -66,3 +67,4 @@ pipeline {
             }
         }
     }
+}
