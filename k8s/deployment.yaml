@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-microservice
+  labels:
+    app: fastapi-app
+spec:
+  replicas: 2
+    matchLabels:
+      app: fastapi-app
+  template:
+    metadata:
+      labels:
+        app: fastapi-app
+    spec:
+      containers:
+      - name: fastapi-container
+        image: n3ptune22/microservice-api:latest 
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
